@@ -21,24 +21,22 @@ int quick_select(int A[], int n, int k){
   int i, j, l, pivot;
 
 // 真ん中の要素をピボットとする
-  pivot = A[n/2];
-  A[n/2] = A[0];
-  A[0] = pivot;
+    pivot = A[n/2];
+    A[n/2] = A[0];
+    A[0] = pivot;
   for(i = j = l = 1; i < n; i++){
-    if(A[i] < pivot){
-      swap(A+i, A+l);
-      j++;
-      l++;
+    if(A[i] <= pivot){
+      swap(A+i, A+j);
+       if(A[j] == pivot){
+        swap(A+j, A+l);
+        l++;
     }
-    else if(A[i] == pivot){
-        swap(A+i, A+j);
         j++;
-    }
   }
-
-  if(j == k+1) return pivot;
+  }
+  if(j-l < k+1 && k+1<= j) return pivot;
   else if(j < k+1) return quick_select(A+j, n-j, k-j);
-  else return quick_select(A+1, l-1, k);
+  else return quick_select(A+l, j-l, k);
 }
 
 
